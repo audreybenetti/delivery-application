@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
@@ -13,14 +17,22 @@ import javax.persistence.*;
 @Table(name = "Costumers")
 public class Costumer {
 
+    @NotNull(groups = ValidationGroups.CostumerId.class)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @NotBlank
+    @Size(max = 60)
     private String name;
-    @Column
+
+    @NotBlank
+    @Email
+    @Size(max = 255)
     private String email;
-    @Column
+
+    @NotBlank
+    @Size(max = 20)
     private String phone;
 }

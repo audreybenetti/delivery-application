@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,13 +19,13 @@ public class CostumerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Costumer create(@RequestBody Costumer costumer){
+    public Costumer create(@Valid @RequestBody Costumer costumer){
         return costumerService.save(costumer);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Costumer> update(@PathVariable Long id,
-                                           @RequestBody Costumer costumer){
+                                          @Valid @RequestBody Costumer costumer){
         if (costumerService.existsById(id)) {
             costumer.setId(id);
             costumer = costumerService.save(costumer);
@@ -51,7 +52,4 @@ public class CostumerController {
             return ResponseEntity.noContent().build();
         } else return ResponseEntity.notFound().build();
     }
-
-
-
 }
