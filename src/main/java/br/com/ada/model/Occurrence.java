@@ -1,8 +1,27 @@
 package br.com.ada.model;
 
-import java.util.Date;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Getter
+@Setter
+@Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Occurrence {
+
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Delivery delivery;
+
     private String description;
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
 }

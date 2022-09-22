@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
@@ -30,6 +31,9 @@ public class Delivery {
     @Embedded
     private Recipient recipient;
 
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    private List<Occurrence> occurrence;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
@@ -42,4 +46,5 @@ public class Delivery {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime deliveryDate;
+
 }
